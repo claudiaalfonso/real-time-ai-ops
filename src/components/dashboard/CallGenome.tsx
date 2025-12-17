@@ -31,18 +31,18 @@ const mockCalls: CallData[] = [
   },
   {
     id: "CG-002",
-    reason: "Billing discrepancy — €47.50",
+    reason: "Billing discrepancy — £47.50",
     outcome: "resolved",
     confidence: 89,
     latency: { stt: 195, reasoning: 380, tts: 145 },
     sentiment: { start: 25, end: 85 },
     duration: "1:52",
-    summary: "Customer disputed overnight charging fee. AI explained time-of-use rates, applied €12 goodwill credit per policy.",
+    summary: "Customer disputed overnight charging fee. AI explained time-of-use rates, applied £12 goodwill credit per policy.",
     timestamp: "5 min ago"
   },
   {
     id: "CG-003",
-    reason: "Connectivity issues — Berlin grid",
+    reason: "Connectivity issues — UK National Grid",
     outcome: "escalated",
     confidence: 67,
     latency: { stt: 210, reasoning: 890, tts: 165 },

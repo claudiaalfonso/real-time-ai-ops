@@ -13,8 +13,8 @@ const recommendations = [
   },
   {
     id: 2,
-    title: "Improve Berlin grid outage context",
-    description: "AI lacks real-time grid status for Berlin region. Connect to BerlinGrid API for live updates.",
+    title: "Improve UK National Grid outage context",
+    description: "AI lacks real-time grid status for UK regions. Connect to National Grid ESO API for live updates.",
     impact: "+12% resolution",
     confidence: 87,
     category: "Knowledge Base",

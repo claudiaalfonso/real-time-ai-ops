@@ -22,7 +22,7 @@ const initialMoments: Moment[] = [
     id: "2",
     type: "info",
     message: "Human escalation avoided — AI workaround accepted",
-    location: "Munich",
+    location: "Birmingham",
     timestamp: "1 min ago"
   },
   {
@@ -34,8 +34,8 @@ const initialMoments: Moment[] = [
   {
     id: "4",
     type: "success",
-    message: "Billing dispute resolved with €15 credit",
-    location: "Paris",
+    message: "Billing dispute resolved with £15 credit",
+    location: "Manchester",
     timestamp: "3 min ago"
   },
   {
@@ -51,21 +51,21 @@ const newMomentsPool: Moment[] = [
     id: "new1",
     type: "success",
     message: "AI completed firmware diagnosis remotely",
-    location: "Amsterdam",
+    location: "Edinburgh",
     timestamp: "Just now"
   },
   {
     id: "new2",
     type: "info",
     message: "Customer satisfaction improved mid-call",
-    location: "Berlin",
+    location: "Bristol",
     timestamp: "Just now"
   },
   {
     id: "new3",
     type: "success",
     message: "Complex multi-charger issue resolved",
-    location: "Vienna",
+    location: "Leeds",
     timestamp: "Just now"
   },
 ];
