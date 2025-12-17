@@ -9,7 +9,7 @@ const metrics = [
 ];
 
 const anomalies = [
-  { text: "Spike in charger connectivity — Berlin", severity: "warning" },
+  { text: "Spike in charger connectivity — Manchester", severity: "warning" },
   { text: "Latency degradation on firmware v3.2", severity: "alert" },
 ];
 
