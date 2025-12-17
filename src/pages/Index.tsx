@@ -8,11 +8,9 @@ import { LiveMomentsFeed } from "@/components/dashboard/LiveMomentsFeed";
 import { EscalationIntelligence } from "@/components/dashboard/EscalationIntelligence";
 import { CallDurationChart } from "@/components/dashboard/CallDurationChart";
 import { CallReasonFlow } from "@/components/dashboard/CallReasonFlow";
+import { DashboardGuide } from "@/components/dashboard/DashboardGuide";
 import { motion } from "framer-motion";
-import { 
-  Phone, CheckCircle, Clock, Brain, Users, 
-  TrendingUp, Zap, BarChart3 
-} from "lucide-react";
+import { Phone, CheckCircle, Clock, Users } from "lucide-react";
 
 const Index = () => {
   return (
@@ -150,6 +148,9 @@ const Index = () => {
           </div>
         </footer>
       </main>
+
+      {/* Floating Guide Button */}
+      <DashboardGuide />
     </div>
   );
 };
