@@ -3,6 +3,12 @@ import { KpiCard } from "@/components/dashboard/KpiCard";
 import { CallGenome } from "@/components/dashboard/CallGenome";
 import { LiveMomentsFeed } from "@/components/dashboard/LiveMomentsFeed";
 import { RecommendedActions } from "@/components/dashboard/RecommendedActions";
+import { ResolutionFunnel } from "@/components/dashboard/ResolutionFunnel";
+import { SentimentIntelligence } from "@/components/dashboard/SentimentIntelligence";
+import { CallDurationChart } from "@/components/dashboard/CallDurationChart";
+import { CallReasonFlow } from "@/components/dashboard/CallReasonFlow";
+import { AICoaching } from "@/components/dashboard/AICoaching";
+import { EscalationIntelligence } from "@/components/dashboard/EscalationIntelligence";
 import { DashboardGuide } from "@/components/dashboard/DashboardGuide";
 import { Separator } from "@/components/ui/separator";
 import { Phone, CheckCircle, Clock, Users } from "lucide-react";
@@ -13,9 +19,11 @@ const Index = () => {
       <CommandBar />
 
       <main className="max-w-screen-2xl mx-auto px-6 py-8">
-        {/* Section Header */}
-        <section className="mb-8">
+        {/* LAYER 1 - Real-time Visibility */}
+        <section className="mb-10">
           <div className="flex items-center gap-3 mb-1">
+            <span className="text-xs font-medium text-primary/70 uppercase tracking-wider">Layer 1</span>
+            <span className="text-muted-foreground/40">—</span>
             <h2 className="text-lg font-semibold text-foreground">Real-time Visibility</h2>
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <span className="relative w-1.5 h-1.5">
@@ -25,7 +33,7 @@ const Index = () => {
               Live
             </div>
           </div>
-          <p className="text-sm text-muted-foreground">Live operational signal across the fleet</p>
+          <p className="text-sm text-muted-foreground">What's happening now across the fleet</p>
         </section>
 
         {/* KPI Strip */}
@@ -68,18 +76,55 @@ const Index = () => {
           />
         </div>
 
-        <Separator className="mb-8 bg-border/30" />
-
-        {/* 2-Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - Call Genome (2/3) */}
+        {/* Layer 1 Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
           <div className="lg:col-span-2">
             <CallGenome />
           </div>
-
-          {/* Right Column - Live Moments + Recommended Actions (1/3) */}
           <div className="space-y-6">
             <LiveMomentsFeed />
+          </div>
+        </div>
+
+        <Separator className="mb-10 bg-border/30" />
+
+        {/* LAYER 2 - AI Performance & Quality */}
+        <section className="mb-8">
+          <div className="flex items-center gap-3 mb-1">
+            <span className="text-xs font-medium text-primary/70 uppercase tracking-wider">Layer 2</span>
+            <span className="text-muted-foreground/40">—</span>
+            <h2 className="text-lg font-semibold text-foreground">AI Performance & Quality</h2>
+          </div>
+          <p className="text-sm text-muted-foreground">Is the AI doing a good job?</p>
+        </section>
+
+        {/* Layer 2 Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+          <ResolutionFunnel />
+          <SentimentIntelligence />
+          <CallDurationChart />
+          <CallReasonFlow />
+        </div>
+
+        <Separator className="mb-10 bg-border/30" />
+
+        {/* LAYER 3 - Optimization & Recommendations */}
+        <section className="mb-8">
+          <div className="flex items-center gap-3 mb-1">
+            <span className="text-xs font-medium text-primary/70 uppercase tracking-wider">Layer 3</span>
+            <span className="text-muted-foreground/40">—</span>
+            <h2 className="text-lg font-semibold text-foreground">Optimization & Recommendations</h2>
+          </div>
+          <p className="text-sm text-muted-foreground">What should we do next?</p>
+        </section>
+
+        {/* Layer 3 Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+          <div className="lg:col-span-2">
+            <AICoaching />
+          </div>
+          <div className="space-y-6">
+            <EscalationIntelligence />
             <RecommendedActions />
           </div>
         </div>
