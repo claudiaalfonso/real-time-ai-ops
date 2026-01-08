@@ -1,7 +1,7 @@
-import { Activity, Zap, Users, Brain, AlertTriangle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Activity, Zap, Users, Brain } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { AlertBanner } from "./AlertBanner";
 
 const metrics = [
   { label: "AI Resolution", value: "94.2%", trend: "+2.1%", icon: Brain, positive: true, tooltip: "Percentage of calls resolved by AI without human intervention" },
@@ -18,14 +18,14 @@ const anomalies = [
 export const CommandBar = () => {
   return (
     <TooltipProvider delayDuration={200}>
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="px-6 py-3">
+      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
+        <div className="max-w-screen-2xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between gap-6">
             {/* Logo & Title */}
             <div className="flex items-center gap-3">
               <div className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-primary/10 border border-primary/20">
                 <Zap className="w-4 h-4 text-primary" />
-                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-success rounded-full animate-pulse-subtle" />
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
               </div>
               <div>
                 <h1 className="text-sm font-semibold text-foreground tracking-tight">ENERA</h1>
@@ -33,25 +33,25 @@ export const CommandBar = () => {
               </div>
             </div>
 
-            <Separator orientation="vertical" className="h-8" />
+            <Separator orientation="vertical" className="h-8 bg-border/50" />
 
             {/* Metrics */}
-            <div className="flex items-center gap-4 flex-1">
+            <div className="flex items-center gap-3 flex-1">
               {metrics.map((metric) => (
                 <Tooltip key={metric.label}>
                   <TooltipTrigger asChild>
-                    <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-md bg-secondary/50 border border-border/50 cursor-default transition-colors hover:bg-secondary/70">
-                      <metric.icon className="w-3.5 h-3.5 text-muted-foreground" />
-                      <div className="flex items-baseline gap-2">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-muted/30 border border-border/40 cursor-default transition-colors hover:bg-muted/50">
+                      <metric.icon className="w-3.5 h-3.5 text-muted-foreground/60" />
+                      <div className="flex items-baseline gap-1.5">
                         <span className="text-xs font-medium text-foreground">{metric.value}</span>
-                        <span className={`text-2xs ${metric.positive ? 'text-success' : 'text-destructive'}`}>
+                        <span className={`text-2xs ${metric.positive ? 'text-emerald-500' : 'text-rose-400'}`}>
                           {metric.trend}
                         </span>
                       </div>
                     </div>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" className="max-w-xs">
-                    <p className="font-medium">{metric.label}</p>
+                    <p className="font-medium text-sm">{metric.label}</p>
                     <p className="text-muted-foreground text-xs mt-0.5">{metric.tooltip}</p>
                   </TooltipContent>
                 </Tooltip>
@@ -61,18 +61,12 @@ export const CommandBar = () => {
             {/* Anomaly Alerts */}
             <div className="flex items-center gap-2">
               {anomalies.map((anomaly, i) => (
-                <Badge
+                <AlertBanner
                   key={i}
-                  variant="outline"
-                  className={`text-2xs py-1 px-2.5 font-normal ${
-                    anomaly.severity === 'warning' 
-                      ? 'border-warning/30 bg-warning/5 text-warning' 
-                      : 'border-destructive/30 bg-destructive/5 text-destructive'
-                  }`}
-                >
-                  <AlertTriangle className="w-3 h-3 mr-1.5" />
-                  {anomaly.text}
-                </Badge>
+                  message={anomaly.text}
+                  severity={anomaly.severity}
+                  onAction={() => console.log('Investigate:', anomaly.text)}
+                />
               ))}
             </div>
           </div>
