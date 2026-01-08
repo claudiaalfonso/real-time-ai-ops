@@ -15,40 +15,40 @@ export const CallDurationChart = () => {
   
   return (
     <Card className="card-elevated h-full">
-      <CardHeader className="pb-3 pt-4 px-4">
+      <CardHeader className="pb-4 pt-6 px-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-md bg-primary/10">
-              <Clock className="w-3.5 h-3.5 text-primary" />
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-primary/10">
+              <Clock className="w-4 h-4 text-primary" />
             </div>
             <div>
-              <CardTitle className="text-base font-semibold">Call Duration</CardTitle>
-              <p className="text-2xs text-muted-foreground mt-0.5">Distribution by time bucket</p>
+              <CardTitle className="text-lg font-semibold">Call Duration</CardTitle>
+              <p className="text-sm text-muted-foreground mt-1">Distribution by time bucket</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-xl font-semibold text-foreground">1:47</p>
-            <p className="text-2xs text-muted-foreground">avg duration</p>
+            <p className="text-2xl font-semibold text-foreground">1:47</p>
+            <p className="text-sm text-muted-foreground">avg duration</p>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="px-4 pb-4">
+      <CardContent className="px-6 pb-6">
         {/* Bar Chart */}
-        <div className="flex items-end gap-1.5 h-28 mb-3">
+        <div className="flex items-end gap-2 h-32 mb-4">
           {durationBuckets.map((bucket, index) => (
             <div
               key={bucket.range}
               className="flex-1 relative group"
             >
               <div 
-                className={`w-full ${bucket.color} rounded-t transition-all duration-500 ease-out hover:opacity-80`}
+                className={`w-full ${bucket.color} rounded-t-md transition-all duration-500 ease-out hover:opacity-80`}
                 style={{ 
                   height: `${(bucket.percentage / maxPercentage) * 100}%`,
                   animationDelay: `${index * 80}ms`
                 }}
               />
-              <div className="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                <div className="bg-popover px-2 py-1 rounded text-2xs text-foreground shadow-md whitespace-nowrap border border-border">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                <div className="bg-popover px-2.5 py-1.5 rounded-lg text-sm text-foreground shadow-md whitespace-nowrap border border-border">
                   {bucket.count} calls
                 </div>
               </div>
@@ -57,20 +57,20 @@ export const CallDurationChart = () => {
         </div>
 
         {/* Labels */}
-        <div className="flex gap-1.5">
+        <div className="flex gap-2">
           {durationBuckets.map((bucket) => (
             <div key={bucket.range} className="flex-1 text-center">
-              <p className="text-2xs text-muted-foreground">{bucket.range}</p>
-              <p className="text-2xs font-medium text-foreground">{bucket.percentage}%</p>
+              <p className="text-sm text-muted-foreground">{bucket.range}</p>
+              <p className="text-sm font-medium text-foreground mt-0.5">{bucket.percentage}%</p>
             </div>
           ))}
         </div>
 
         {/* Insight */}
-        <div className="mt-3 pt-3 border-t border-border/50">
-          <div className="flex items-center gap-1.5 text-success">
-            <TrendingDown className="w-3.5 h-3.5" />
-            <span className="text-xs">Average duration decreased by 14s this week</span>
+        <div className="mt-6 pt-4 border-t border-border/40">
+          <div className="flex items-center gap-2 text-success">
+            <TrendingDown className="w-4 h-4" />
+            <span className="text-sm">Average duration decreased by 14s this week</span>
           </div>
         </div>
       </CardContent>

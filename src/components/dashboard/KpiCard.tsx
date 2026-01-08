@@ -39,40 +39,40 @@ export const KpiCard = ({
 
   const content = (
     <Card 
-      className={`bg-card border-border/50 rounded-xl transition-all duration-200 ${details ? 'cursor-pointer hover:border-primary/30 hover:shadow-md hover:shadow-primary/5' : ''}`}
+      className={`bg-card border-border/40 rounded-2xl transition-all duration-150 ${details ? 'cursor-pointer hover:border-border/60 hover:shadow-md' : ''}`}
       onClick={handleClick}
     >
-      <CardContent className="p-5">
+      <CardContent className="p-6">
         <div className="flex items-start justify-between">
-          <div className="space-y-2">
+          <div className="space-y-3">
             <p className="text-sm text-muted-foreground">{label}</p>
-            <div className="flex items-baseline gap-2">
-              <p className="text-2xl font-semibold leading-none text-foreground">{value}</p>
+            <div className="flex items-baseline gap-3">
+              <p className="text-3xl font-semibold leading-none text-foreground tracking-tight">{value}</p>
               {delta && (
-                <span className={`flex items-center gap-0.5 text-xs font-medium ${deltaPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
-                  {deltaPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                <span className={`flex items-center gap-1 text-sm font-medium ${deltaPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
+                  {deltaPositive ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                   {delta}
                 </span>
               )}
             </div>
             {subtitle && (
-              <p className="text-xs text-muted-foreground/80">{subtitle}</p>
+              <p className="text-sm text-muted-foreground/70">{subtitle}</p>
             )}
           </div>
-          <Icon className="w-5 h-5 text-muted-foreground/40" />
+          <Icon className="w-6 h-6 text-muted-foreground/30" />
         </div>
       </CardContent>
     </Card>
   );
 
   const cardElement = tooltip ? (
-    <TooltipProvider delayDuration={200}>
+    <TooltipProvider delayDuration={300}>
       <Tooltip>
         <TooltipTrigger asChild>
           {content}
         </TooltipTrigger>
         <TooltipContent side="bottom" className="max-w-xs">
-          <p className="text-xs">{tooltip}</p>
+          <p className="text-sm">{tooltip}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

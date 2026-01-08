@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CallTimelineItem, type CallData } from "./CallTimelineItem";
 import { ExplainSheet } from "./ExplainSheet";
@@ -62,43 +63,47 @@ export const CallGenome = () => {
 
   return (
     <>
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-base font-semibold text-foreground">Call Genome</h2>
-            <p className="text-xs text-muted-foreground mt-0.5">Real-time AI interaction analysis</p>
+      <Card className="card-elevated h-full">
+        <CardHeader className="pb-4 pt-6 px-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-lg font-semibold">Call Genome</CardTitle>
+              <p className="text-sm text-muted-foreground mt-1">Real-time AI interaction analysis</p>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="relative w-2 h-2">
+                <span className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75" />
+                <span className="relative block w-2 h-2 bg-emerald-500 rounded-full" />
+              </span>
+              Live
+            </div>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <span className="relative w-1.5 h-1.5">
-              <span className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75" />
-              <span className="relative block w-1.5 h-1.5 bg-emerald-500 rounded-full" />
-            </span>
-            Live
-          </div>
-        </div>
+        </CardHeader>
 
-        <ScrollArea className="h-[400px] pr-2">
-          <div className="space-y-2">
-            <AnimatePresence mode="popLayout">
-              {mockCalls.map((call, index) => (
-                <motion.div
-                  key={call.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ delay: index * 0.05, duration: 0.2 }}
-                >
-                  <CallTimelineItem
-                    call={call}
-                    onExpand={() => handleExplain(call)}
-                    onExplain={() => handleExplain(call)}
-                  />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-        </ScrollArea>
-      </div>
+        <CardContent className="px-6 pb-6">
+          <ScrollArea className="h-[420px] pr-3">
+            <div className="space-y-3">
+              <AnimatePresence mode="popLayout">
+                {mockCalls.map((call, index) => (
+                  <motion.div
+                    key={call.id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ delay: index * 0.05, duration: 0.2 }}
+                  >
+                    <CallTimelineItem
+                      call={call}
+                      onExpand={() => handleExplain(call)}
+                      onExplain={() => handleExplain(call)}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </ScrollArea>
+        </CardContent>
+      </Card>
 
       <ExplainSheet 
         call={selectedCall} 

@@ -99,22 +99,22 @@ export const LiveMomentsFeed = () => {
   }, []);
 
   return (
-    <Card className="bg-card border-border/50 rounded-xl">
-      <CardHeader className="pb-2 pt-4 px-4">
+    <Card className="card-elevated h-full">
+      <CardHeader className="pb-4 pt-6 px-6">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
-            <span className="relative w-1.5 h-1.5">
+          <CardTitle className="text-lg font-semibold flex items-center gap-3">
+            <span className="relative w-2 h-2">
               <span className="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-75" />
-              <span className="relative block w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+              <span className="relative block w-2 h-2 bg-emerald-400 rounded-full" />
             </span>
             Live Moments
           </CardTitle>
-          <span className="text-xs text-muted-foreground">Real-time</span>
+          <span className="text-sm text-muted-foreground">Real-time</span>
         </div>
       </CardHeader>
-      <CardContent className="px-4 pb-4">
-        <ScrollArea className="h-[280px] pr-2">
-          <div className="space-y-1.5">
+      <CardContent className="px-6 pb-6">
+        <ScrollArea className="h-[360px] pr-3">
+          <div className="space-y-2">
             <AnimatePresence mode="popLayout">
               {moments.map((moment) => (
                 <motion.div
