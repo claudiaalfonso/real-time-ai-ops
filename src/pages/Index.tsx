@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { CommandBar } from "@/components/dashboard/CommandBar";
 import { KpiCard } from "@/components/dashboard/KpiCard";
 import { CallGenome } from "@/components/dashboard/CallGenome";
@@ -10,17 +11,118 @@ import { CallReasonFlow } from "@/components/dashboard/CallReasonFlow";
 import { AICoaching } from "@/components/dashboard/AICoaching";
 import { EscalationIntelligence } from "@/components/dashboard/EscalationIntelligence";
 import { DashboardGuide } from "@/components/dashboard/DashboardGuide";
+import { LayerNavigation } from "@/components/dashboard/LayerNavigation";
 import { Separator } from "@/components/ui/separator";
 import { Phone, CheckCircle, Clock, Users } from "lucide-react";
 
+// KPI Detail Data
+const kpiDetails = {
+  totalCalls: {
+    breakdown: [
+      { label: "Inbound", value: "2,412", trend: "+8%", trendPositive: true },
+      { label: "Outbound", value: "435", trend: "+24%", trendPositive: true },
+      { label: "Callbacks", value: "189", trend: "-5%", trendPositive: false },
+      { label: "Transfers", value: "76", trend: "-12%", trendPositive: true },
+    ],
+    insights: [
+      "Peak call volume between 10am-2pm EST",
+      "Monday consistently highest volume day",
+      "35% of calls are repeat customers",
+    ],
+    comparison: [
+      { label: "Yesterday", value: "2,535 calls" },
+      { label: "Last Week Avg", value: "2,621 calls" },
+      { label: "Last Month Avg", value: "2,489 calls" },
+    ],
+  },
+  resolutionRate: {
+    breakdown: [
+      { label: "First Contact", value: "89.1%", trend: "+1.2%", trendPositive: true },
+      { label: "With Follow-up", value: "5.1%", trend: "-0.3%", trendPositive: true },
+      { label: "Escalated", value: "5.8%", trend: "-0.9%", trendPositive: true },
+      { label: "Unresolved", value: "0.0%", trend: "0%", trendPositive: true },
+    ],
+    insights: [
+      "Billing inquiries have highest AI resolution rate at 97%",
+      "Technical issues improved 4% after last model update",
+      "Account changes automation reduced escalations by 28%",
+    ],
+    comparison: [
+      { label: "Industry Average", value: "67%" },
+      { label: "Your Target", value: "95%" },
+      { label: "Best Day (Dec 2)", value: "96.8%" },
+    ],
+  },
+  avgResolutionTime: {
+    breakdown: [
+      { label: "Simple Queries", value: "0:42", trend: "-8s", trendPositive: true },
+      { label: "Medium Complexity", value: "1:58", trend: "-12s", trendPositive: true },
+      { label: "Complex Issues", value: "3:24", trend: "-22s", trendPositive: true },
+      { label: "Escalated", value: "8:15", trend: "+45s", trendPositive: false },
+    ],
+    insights: [
+      "Password resets now average just 23 seconds",
+      "Order status checks down to 31 seconds",
+      "Complex billing disputes still averaging 4+ minutes",
+    ],
+    comparison: [
+      { label: "Target Time", value: "< 2:00" },
+      { label: "Last Week", value: "2:01" },
+      { label: "Last Month", value: "2:14" },
+    ],
+  },
+  humanInterventions: {
+    breakdown: [
+      { label: "Customer Request", value: "68", trend: "-8", trendPositive: true },
+      { label: "AI Handoff", value: "52", trend: "-11", trendPositive: true },
+      { label: "Supervisor Review", value: "31", trend: "-3", trendPositive: true },
+      { label: "Policy Override", value: "14", trend: "-1", trendPositive: true },
+    ],
+    insights: [
+      "Most escalations happen within first 45 seconds",
+      "Refund requests > $100 trigger 42% of escalations",
+      "Training on product returns reduced escalations 18%",
+    ],
+    comparison: [
+      { label: "Yesterday", value: "188 interventions" },
+      { label: "Last Week Avg", value: "192 interventions" },
+      { label: "Target", value: "< 150 interventions" },
+    ],
+  },
+};
+
 const Index = () => {
+  const [activeLayer, setActiveLayer] = useState("layer1");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["layer1", "layer2", "layer3"];
+      const scrollPosition = window.scrollY + 150;
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveLayer(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <CommandBar />
+      <LayerNavigation activeLayer={activeLayer} onLayerChange={setActiveLayer} />
 
       <main className="max-w-screen-2xl mx-auto px-6 py-8">
         {/* LAYER 1 - Real-time Visibility */}
-        <section className="mb-10">
+        <section id="layer1" className="mb-10 scroll-mt-32">
           <div className="flex items-center gap-3 mb-1">
             <span className="text-xs font-medium text-primary/70 uppercase tracking-wider">Layer 1</span>
             <span className="text-muted-foreground/40">—</span>
@@ -46,6 +148,7 @@ const Index = () => {
             icon={Phone}
             subtitle="↑ 312 from yesterday"
             tooltip="Total inbound calls received in the last 24 hours"
+            details={kpiDetails.totalCalls}
           />
           <KpiCard
             label="AI Resolution Rate"
@@ -55,6 +158,7 @@ const Index = () => {
             icon={CheckCircle}
             subtitle="Industry avg: 67%"
             tooltip="Percentage of calls resolved without human intervention"
+            details={kpiDetails.resolutionRate}
           />
           <KpiCard
             label="Avg Resolution Time"
@@ -64,6 +168,7 @@ const Index = () => {
             icon={Clock}
             subtitle="Target: < 2:00"
             tooltip="Average time to resolve customer issues"
+            details={kpiDetails.avgResolutionTime}
           />
           <KpiCard
             label="Human Interventions"
@@ -73,6 +178,7 @@ const Index = () => {
             icon={Users}
             subtitle="5.8% of calls"
             tooltip="Calls requiring human escalation"
+            details={kpiDetails.humanInterventions}
           />
         </div>
 
@@ -89,7 +195,7 @@ const Index = () => {
         <Separator className="mb-10 bg-border/30" />
 
         {/* LAYER 2 - AI Performance & Quality */}
-        <section className="mb-8">
+        <section id="layer2" className="mb-8 scroll-mt-32">
           <div className="flex items-center gap-3 mb-1">
             <span className="text-xs font-medium text-primary/70 uppercase tracking-wider">Layer 2</span>
             <span className="text-muted-foreground/40">—</span>
@@ -109,7 +215,7 @@ const Index = () => {
         <Separator className="mb-10 bg-border/30" />
 
         {/* LAYER 3 - Optimization & Recommendations */}
-        <section className="mb-8">
+        <section id="layer3" className="mb-8 scroll-mt-32">
           <div className="flex items-center gap-3 mb-1">
             <span className="text-xs font-medium text-primary/70 uppercase tracking-wider">Layer 3</span>
             <span className="text-muted-foreground/40">—</span>
