@@ -65,73 +65,69 @@ export const CallTimelineItem = ({ call, onExpand, onExplain }: CallTimelineItem
 
   return (
     <TooltipProvider delayDuration={200}>
-      <Card className="bg-card/50 border-border/40 rounded-xl hover:border-border/60 transition-colors duration-150 overflow-hidden">
-        <div className="p-4">
-          <div className="flex items-start gap-3">
-            {/* Status Icon */}
-            <div className={`p-2 rounded-lg shrink-0 ${statusIconStyles[call.outcome]}`}>
-              <Phone className="w-4 h-4" />
-            </div>
+      <Card className="bg-card border-border/50 rounded-lg p-4 hover:bg-card/80 transition-colors duration-150">
+        <div className="flex items-start gap-3">
+          {/* Status Icon */}
+          <div className={`p-2 rounded-lg shrink-0 ${statusIconStyles[call.outcome]}`}>
+            <Phone className="w-4 h-4" />
+          </div>
 
-            {/* Main Content */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-start justify-between gap-2 mb-2">
-                <h4 className="text-sm font-medium text-foreground leading-snug">{call.reason}</h4>
-                <OutcomeBadge outcome={call.outcome} />
-              </div>
-              
-              {/* Meta Row */}
-              <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  {call.duration}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Brain className="w-3 h-3" />
-                  {call.confidence}% confidence
-                </span>
-                <span className="flex items-center gap-1">
-                  <Zap className="w-3 h-3" />
-                  {totalLatency}ms
-                </span>
-              </div>
+          {/* Main Content */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between gap-3 mb-1.5">
+              <h4 className="text-sm font-medium text-foreground leading-snug">{call.reason}</h4>
+              <OutcomeBadge outcome={call.outcome} />
             </div>
+            
+            {/* Meta Row */}
+            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <Clock className="w-3 h-3" />
+                {call.duration}
+              </span>
+              <span className="flex items-center gap-1">
+                <Brain className="w-3 h-3" />
+                {call.confidence}%
+              </span>
+              <span className="flex items-center gap-1">
+                <Zap className="w-3 h-3" />
+                {totalLatency}ms
+              </span>
+              <span className="ml-auto">{call.timestamp}</span>
+            </div>
+          </div>
 
-            {/* Actions */}
-            <div className="flex items-center gap-1 shrink-0">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-7 w-7 p-0 text-muted-foreground hover:text-primary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onExplain();
-                    }}
-                    aria-label="Explain AI decision"
-                  >
-                    <HelpCircle className="w-4 h-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">
-                  <p className="text-xs">Explain AI decision</p>
-                </TooltipContent>
-              </Tooltip>
-              
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <span className="hidden sm:inline">{call.timestamp}</span>
+          {/* Actions */}
+          <div className="flex items-center gap-1 shrink-0">
+            <Tooltip>
+              <TooltipTrigger asChild>
                 <Button 
                   variant="ghost" 
-                  size="sm"
-                  className="h-7 w-7 p-0"
-                  onClick={onExpand}
-                  aria-label="View details"
+                  size="sm" 
+                  className="h-7 w-7 p-0 text-muted-foreground hover:text-primary"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onExplain();
+                  }}
+                  aria-label="Explain AI decision"
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  <HelpCircle className="w-4 h-4" />
                 </Button>
-              </div>
-            </div>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <p className="text-xs">Explain</p>
+              </TooltipContent>
+            </Tooltip>
+            
+            <Button 
+              variant="ghost" 
+              size="sm"
+              className="h-7 w-7 p-0 text-muted-foreground"
+              onClick={onExpand}
+              aria-label="View details"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </Card>
