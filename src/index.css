@@ -6,7 +6,67 @@
 
 @layer base {
   :root {
-    /* Lighter, cleaner dark surfaces */
+    /* Light theme - clean, executive surfaces */
+    --background: 210 20% 98%;
+    --foreground: 220 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
+
+    /* Teal/Cyan accents */
+    --primary: 185 70% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 10% 94%;
+    --secondary-foreground: 220 15% 20%;
+
+    --muted: 220 10% 96%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 185 70% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Success - Emerald */
+    --success: 160 60% 40%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning - Amber */
+    --warning: 38 80% 50%;
+    --warning-foreground: 38 80% 10%;
+
+    /* Destructive - Reserved for critical alerts */
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 10% 90%;
+    --input: 220 10% 90%;
+    --ring: 185 70% 42%;
+
+    --radius: 0.75rem;
+
+    /* Light shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(220 10% 0% / 0.05);
+    --shadow-md: 0 4px 12px -2px hsl(220 10% 0% / 0.08);
+    --shadow-lg: 0 8px 24px -4px hsl(220 10% 0% / 0.1);
+    --shadow-card: 0 1px 3px 0 hsl(220 10% 0% / 0.06);
+
+    --glow-focus: inset 0 0 0 1px hsl(185 70% 42% / 0.3), 0 0 0 3px hsl(185 70% 42% / 0.1);
+    
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 15% 15%;
+    --sidebar-primary: 185 70% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 10% 96%;
+    --sidebar-accent-foreground: 220 15% 20%;
+    --sidebar-border: 220 10% 90%;
+    --sidebar-ring: 185 70% 42%;
+  }
+
+  .dark {
+    /* Dark theme - deep midnight surfaces */
     --background: 220 15% 11%;
     --foreground: 210 20% 98%;
 
@@ -29,15 +89,15 @@
     --accent: 185 70% 50%;
     --accent-foreground: 220 25% 6%;
 
-    /* Success - Emerald for positive signals */
+    /* Success - Emerald */
     --success: 160 60% 45%;
     --success-foreground: 160 60% 95%;
 
-    /* Warning - Amber, soft */
+    /* Warning - Amber */
     --warning: 38 80% 55%;
     --warning-foreground: 38 80% 10%;
 
-    /* Destructive - Reserved for critical alerts only */
+    /* Destructive */
     --destructive: 0 60% 55%;
     --destructive-foreground: 210 20% 98%;
 
@@ -45,15 +105,12 @@
     --input: 220 12% 22%;
     --ring: 185 70% 50%;
 
-    --radius: 0.75rem;
-
-    /* Lighter shadows */
+    /* Dark shadows */
     --shadow-sm: 0 1px 2px 0 hsl(220 25% 0% / 0.2);
     --shadow-md: 0 4px 12px -2px hsl(220 25% 0% / 0.3);
     --shadow-lg: 0 8px 24px -4px hsl(220 25% 0% / 0.35);
     --shadow-card: 0 1px 3px 0 hsl(220 25% 0% / 0.15);
 
-    /* Subtle inner glow for focus states */
     --glow-focus: inset 0 0 0 1px hsl(185 70% 50% / 0.3), 0 0 0 3px hsl(185 70% 50% / 0.1);
     
     --sidebar-background: 220 15% 12%;
