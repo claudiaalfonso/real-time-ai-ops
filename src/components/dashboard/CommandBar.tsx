@@ -2,6 +2,7 @@ import { Activity, Zap, Users, Brain } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { AlertBanner } from "./AlertBanner";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const metrics = [
   { label: "AI Resolution", value: "94.2%", trend: "+2.1%", icon: Brain, positive: true, tooltip: "Percentage of calls resolved by AI without human intervention" },
@@ -57,7 +58,7 @@ export const CommandBar = () => {
               ))}
             </div>
 
-            {/* Anomaly Alerts - more subtle */}
+            {/* Anomaly Alerts + Theme Toggle */}
             <div className="flex items-center gap-2">
               {anomalies.map((anomaly, i) => (
                 <AlertBanner
@@ -67,6 +68,8 @@ export const CommandBar = () => {
                   onAction={() => console.log('Investigate:', anomaly.text)}
                 />
               ))}
+              <Separator orientation="vertical" className="h-5 bg-border/40 mx-1" />
+              <ThemeToggle />
             </div>
           </div>
         </div>
