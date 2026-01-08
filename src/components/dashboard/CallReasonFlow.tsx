@@ -14,66 +14,66 @@ const flowData = {
 
 export const CallReasonFlow = () => {
   return (
-    <Card className="card-elevated">
-      <CardHeader className="pb-3 pt-4 px-4">
+    <Card className="card-elevated h-full">
+      <CardHeader className="pb-4 pt-6 px-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-md bg-secondary">
-              <GitBranch className="w-3.5 h-3.5 text-muted-foreground" />
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-secondary">
+              <GitBranch className="w-4 h-4 text-muted-foreground" />
             </div>
             <div>
-              <CardTitle className="text-base font-semibold">Call Reason Flow</CardTitle>
-              <p className="text-2xs text-muted-foreground mt-0.5">What customers call about</p>
+              <CardTitle className="text-lg font-semibold">Call Reason Flow</CardTitle>
+              <p className="text-sm text-muted-foreground mt-1">What customers call about</p>
             </div>
           </div>
-          <span className="text-xs font-medium text-muted-foreground">
+          <span className="text-sm font-medium text-muted-foreground">
             {flowData.total.toLocaleString()} total
           </span>
         </div>
       </CardHeader>
-      <CardContent className="px-4 pb-4">
+      <CardContent className="px-6 pb-6">
         {/* Flow Visualization */}
         <div className="relative">
           {/* Source Node */}
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-20 py-2.5 px-3 rounded-md bg-secondary text-center">
-              <p className="text-2xs text-muted-foreground">All Calls</p>
-              <p className="text-base font-semibold text-foreground">{flowData.total.toLocaleString()}</p>
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-24 py-3 px-4 rounded-xl bg-secondary text-center">
+              <p className="text-sm text-muted-foreground">All Calls</p>
+              <p className="text-xl font-semibold text-foreground">{flowData.total.toLocaleString()}</p>
             </div>
             <div className="flex-1 h-px bg-gradient-to-r from-muted-foreground/40 to-transparent" />
           </div>
 
           {/* Category Nodes */}
-          <div className="space-y-2 pl-6 relative">
+          <div className="space-y-3 pl-8 relative">
             {/* Connecting line */}
-            <div className="absolute left-10 top-0 bottom-0 w-px bg-border" />
+            <div className="absolute left-12 top-0 bottom-0 w-px bg-border" />
             
             {flowData.categories.map((category, index) => (
               <div
                 key={category.name}
-                className="flex items-center gap-3 relative animate-fade-in"
+                className="flex items-center gap-4 relative animate-fade-in"
                 style={{ animationDelay: `${index * 60}ms` }}
               >
                 {/* Connector */}
-                <div className="absolute left-4 w-3 h-px bg-border" />
-                <div className={`w-2 h-2 rounded-full ${category.color} z-10 shrink-0`} />
+                <div className="absolute left-4 w-4 h-px bg-border" />
+                <div className={`w-2.5 h-2.5 rounded-full ${category.color} z-10 shrink-0`} />
                 
-                <div className="flex-1 flex items-center gap-2.5 p-2.5 rounded-md bg-secondary/40 hover:bg-secondary/60 transition-colors">
+                <div className="flex-1 flex items-center gap-3 p-4 rounded-xl bg-secondary/40 hover:bg-secondary/60 transition-colors duration-150">
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-foreground">{category.name}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <div className="flex-1 h-1 bg-secondary rounded-full overflow-hidden max-w-[160px]">
+                    <p className="text-sm font-medium text-foreground">{category.name}</p>
+                    <div className="flex items-center gap-3 mt-2">
+                      <div className="flex-1 h-1.5 bg-secondary rounded-full overflow-hidden max-w-[180px]">
                         <div
                           className={`h-full rounded-full ${category.color} transition-all duration-500`}
                           style={{ width: `${category.percentage}%` }}
                         />
                       </div>
-                      <span className="text-2xs text-muted-foreground">{category.percentage}%</span>
+                      <span className="text-sm text-muted-foreground">{category.percentage}%</span>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-sm font-semibold text-foreground">{category.count.toLocaleString()}</p>
-                    <p className="text-2xs text-muted-foreground">calls</p>
+                    <p className="text-lg font-semibold text-foreground">{category.count.toLocaleString()}</p>
+                    <p className="text-sm text-muted-foreground">calls</p>
                   </div>
                 </div>
               </div>
@@ -82,8 +82,8 @@ export const CallReasonFlow = () => {
         </div>
 
         {/* Key Insight */}
-        <div className="mt-5 p-2.5 rounded-md bg-primary/5 border border-primary/20">
-          <p className="text-xs text-foreground leading-relaxed">
+        <div className="mt-6 p-4 rounded-xl bg-primary/5 border border-primary/20">
+          <p className="text-sm text-foreground leading-relaxed">
             <span className="font-medium text-primary">Charger Issues</span> dominate at 39.5% — 
             consider proactive status monitoring to reduce inbound volume.
           </p>

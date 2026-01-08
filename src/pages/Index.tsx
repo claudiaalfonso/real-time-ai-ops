@@ -12,7 +12,6 @@ import { AICoaching } from "@/components/dashboard/AICoaching";
 import { EscalationIntelligence } from "@/components/dashboard/EscalationIntelligence";
 import { DashboardGuide } from "@/components/dashboard/DashboardGuide";
 import { LayerNavigation } from "@/components/dashboard/LayerNavigation";
-import { Separator } from "@/components/ui/separator";
 import { Phone, CheckCircle, Clock, Users } from "lucide-react";
 
 // KPI Detail Data
@@ -97,7 +96,7 @@ const Index = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ["layer1", "layer2", "layer3"];
-      const scrollPosition = window.scrollY + 150;
+      const scrollPosition = window.scrollY + 200;
 
       for (const sectionId of sections) {
         const element = document.getElementById(sectionId);
@@ -116,140 +115,135 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <CommandBar />
       <LayerNavigation activeLayer={activeLayer} onLayerChange={setActiveLayer} />
 
-      <main className="max-w-screen-2xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
         {/* LAYER 1 - Real-time Visibility */}
-        <section id="layer1" className="mb-10 scroll-mt-32">
-          <div className="flex items-center gap-3 mb-1">
-            <span className="text-xs font-medium text-primary/70 uppercase tracking-wider">Layer 1</span>
-            <span className="text-muted-foreground/40">—</span>
-            <h2 className="text-lg font-semibold text-foreground">Real-time Visibility</h2>
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span className="relative w-1.5 h-1.5">
-                <span className="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-75" />
-                <span className="relative block w-1.5 h-1.5 bg-emerald-400 rounded-full" />
-              </span>
-              Live
+        <section id="layer1" className="scroll-mt-36">
+          <header className="section-header">
+            <p className="layer-label mb-3">Layer 1</p>
+            <div className="flex items-center gap-4">
+              <h2 className="section-title">Real-time Visibility</h2>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <span className="relative w-2 h-2">
+                  <span className="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-75" />
+                  <span className="relative block w-2 h-2 bg-emerald-400 rounded-full" />
+                </span>
+                Live
+              </div>
+            </div>
+            <p className="section-subtitle">What's happening now across your fleet</p>
+          </header>
+
+          {/* KPI Strip */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            <KpiCard
+              label="Total Calls Today"
+              value="2,847"
+              delta="+12.4%"
+              deltaPositive={true}
+              icon={Phone}
+              subtitle="↑ 312 from yesterday"
+              tooltip="Total inbound calls received in the last 24 hours"
+              details={kpiDetails.totalCalls}
+            />
+            <KpiCard
+              label="AI Resolution Rate"
+              value="94.2%"
+              delta="+2.1%"
+              deltaPositive={true}
+              icon={CheckCircle}
+              subtitle="Industry avg: 67%"
+              tooltip="Percentage of calls resolved without human intervention"
+              details={kpiDetails.resolutionRate}
+            />
+            <KpiCard
+              label="Avg Resolution Time"
+              value="1:47"
+              delta="-14s"
+              deltaPositive={true}
+              icon={Clock}
+              subtitle="Target: < 2:00"
+              tooltip="Average time to resolve customer issues"
+              details={kpiDetails.avgResolutionTime}
+            />
+            <KpiCard
+              label="Human Interventions"
+              value="165"
+              delta="-23"
+              deltaPositive={true}
+              icon={Users}
+              subtitle="5.8% of calls"
+              tooltip="Calls requiring human escalation"
+              details={kpiDetails.humanInterventions}
+            />
+          </div>
+
+          {/* Layer 1 Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-20">
+            <div className="lg:col-span-2">
+              <CallGenome />
+            </div>
+            <div>
+              <LiveMomentsFeed />
             </div>
           </div>
-          <p className="text-sm text-muted-foreground">What's happening now across the fleet</p>
         </section>
-
-        {/* KPI Strip */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <KpiCard
-            label="Total Calls Today"
-            value="2,847"
-            delta="+12.4%"
-            deltaPositive={true}
-            icon={Phone}
-            subtitle="↑ 312 from yesterday"
-            tooltip="Total inbound calls received in the last 24 hours"
-            details={kpiDetails.totalCalls}
-          />
-          <KpiCard
-            label="AI Resolution Rate"
-            value="94.2%"
-            delta="+2.1%"
-            deltaPositive={true}
-            icon={CheckCircle}
-            subtitle="Industry avg: 67%"
-            tooltip="Percentage of calls resolved without human intervention"
-            details={kpiDetails.resolutionRate}
-          />
-          <KpiCard
-            label="Avg Resolution Time"
-            value="1:47"
-            delta="-14s"
-            deltaPositive={true}
-            icon={Clock}
-            subtitle="Target: < 2:00"
-            tooltip="Average time to resolve customer issues"
-            details={kpiDetails.avgResolutionTime}
-          />
-          <KpiCard
-            label="Human Interventions"
-            value="165"
-            delta="-23"
-            deltaPositive={true}
-            icon={Users}
-            subtitle="5.8% of calls"
-            tooltip="Calls requiring human escalation"
-            details={kpiDetails.humanInterventions}
-          />
-        </div>
-
-        {/* Layer 1 Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-          <div className="lg:col-span-2">
-            <CallGenome />
-          </div>
-          <div className="space-y-6">
-            <LiveMomentsFeed />
-          </div>
-        </div>
-
-        <Separator className="mb-10 bg-border/30" />
 
         {/* LAYER 2 - AI Performance & Quality */}
-        <section id="layer2" className="mb-8 scroll-mt-32">
-          <div className="flex items-center gap-3 mb-1">
-            <span className="text-xs font-medium text-primary/70 uppercase tracking-wider">Layer 2</span>
-            <span className="text-muted-foreground/40">—</span>
-            <h2 className="text-lg font-semibold text-foreground">AI Performance & Quality</h2>
+        <section id="layer2" className="scroll-mt-36">
+          <header className="section-header">
+            <p className="layer-label mb-3">Layer 2</p>
+            <h2 className="section-title">AI Performance & Quality</h2>
+            <p className="section-subtitle">Is the AI doing a good job?</p>
+          </header>
+
+          {/* Layer 2 Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-20">
+            <ResolutionFunnel />
+            <SentimentIntelligence />
+            <CallDurationChart />
+            <CallReasonFlow />
           </div>
-          <p className="text-sm text-muted-foreground">Is the AI doing a good job?</p>
         </section>
-
-        {/* Layer 2 Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-          <ResolutionFunnel />
-          <SentimentIntelligence />
-          <CallDurationChart />
-          <CallReasonFlow />
-        </div>
-
-        <Separator className="mb-10 bg-border/30" />
 
         {/* LAYER 3 - Optimization & Recommendations */}
-        <section id="layer3" className="mb-8 scroll-mt-32">
-          <div className="flex items-center gap-3 mb-1">
-            <span className="text-xs font-medium text-primary/70 uppercase tracking-wider">Layer 3</span>
-            <span className="text-muted-foreground/40">—</span>
-            <h2 className="text-lg font-semibold text-foreground">Optimization & Recommendations</h2>
+        <section id="layer3" className="scroll-mt-36">
+          <header className="section-header">
+            <p className="layer-label mb-3">Layer 3</p>
+            <h2 className="section-title">Optimization & Recommendations</h2>
+            <p className="section-subtitle">What should we do next?</p>
+          </header>
+
+          {/* Layer 3 Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-16">
+            <div className="lg:col-span-2">
+              <AICoaching />
+            </div>
+            <div className="space-y-6">
+              <EscalationIntelligence />
+              <RecommendedActions />
+            </div>
           </div>
-          <p className="text-sm text-muted-foreground">What should we do next?</p>
         </section>
 
-        {/* Layer 3 Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-          <div className="lg:col-span-2">
-            <AICoaching />
-          </div>
-          <div className="space-y-6">
-            <EscalationIntelligence />
-            <RecommendedActions />
-          </div>
-        </div>
-
         {/* Footer */}
-        <footer className="mt-12 pt-6 border-t border-border/30">
-          <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <div className="flex items-center gap-3">
-              <span>ENERA Command Center</span>
+        <footer className="pt-8 border-t border-border/30">
+          <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <div className="flex items-center gap-4">
+              <span className="font-medium text-foreground/80">ENERA</span>
               <span className="text-border">•</span>
-              <span className="flex items-center gap-1.5">
-                <span className="relative w-1.5 h-1.5">
+              <span className="flex items-center gap-2">
+                <span className="relative w-2 h-2">
                   <span className="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-75" />
-                  <span className="relative block w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+                  <span className="relative block w-2 h-2 bg-emerald-400 rounded-full" />
                 </span>
                 All systems operational
               </span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <span>Last sync: 3s ago</span>
               <span className="text-border">•</span>
               <span>v2.4.1</span>

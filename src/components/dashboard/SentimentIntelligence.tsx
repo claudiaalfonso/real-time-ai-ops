@@ -1,6 +1,5 @@
 import { TrendingUp, AlertTriangle, Heart, Meh } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 
 const sentimentData = {
   distribution: [
@@ -18,18 +17,20 @@ const sentimentData = {
 export const SentimentIntelligence = () => {
   return (
     <Card className="card-elevated h-full">
-      <CardHeader className="pb-3 pt-4 px-4">
+      <CardHeader className="pb-4 pt-6 px-6">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-base font-semibold">Sentiment Intelligence</CardTitle>
-          <Heart className="w-4 h-4 text-primary" />
+          <div>
+            <CardTitle className="text-lg font-semibold">Sentiment Intelligence</CardTitle>
+            <p className="text-sm text-muted-foreground mt-1">Emotional journey analysis</p>
+          </div>
+          <Heart className="w-5 h-5 text-primary" />
         </div>
-        <p className="text-2xs text-muted-foreground mt-0.5">Emotional journey analysis</p>
       </CardHeader>
-      <CardContent className="px-4 pb-4">
+      <CardContent className="px-6 pb-6">
         {/* Distribution */}
-        <div className="mb-5">
-          <p className="text-2xs text-muted-foreground mb-2">Sentiment Distribution</p>
-          <div className="flex h-2 rounded-full overflow-hidden bg-secondary">
+        <div className="mb-6">
+          <p className="text-sm text-muted-foreground mb-3">Sentiment Distribution</p>
+          <div className="flex h-3 rounded-full overflow-hidden bg-secondary">
             {sentimentData.distribution.map((item) => (
               <div
                 key={item.label}
@@ -38,37 +39,37 @@ export const SentimentIntelligence = () => {
               />
             ))}
           </div>
-          <div className="flex justify-between mt-2">
+          <div className="flex justify-between mt-3">
             {sentimentData.distribution.map((item) => (
-              <div key={item.label} className="flex items-center gap-1">
-                <span className={`w-1.5 h-1.5 rounded-full ${item.color}`} />
-                <span className="text-2xs text-muted-foreground">{item.label}</span>
-                <span className="text-2xs font-medium text-foreground">{item.value}%</span>
+              <div key={item.label} className="flex items-center gap-1.5">
+                <span className={`w-2 h-2 rounded-full ${item.color}`} />
+                <span className="text-sm text-muted-foreground">{item.label}</span>
+                <span className="text-sm font-medium text-foreground">{item.value}%</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Metrics */}
-        <div className="space-y-2">
+        <div className="space-y-3">
           {sentimentData.metrics.map((metric, index) => (
             <div
               key={metric.label}
-              className="flex items-center justify-between p-2.5 rounded-md bg-secondary/40 animate-fade-in"
+              className="flex items-center justify-between p-4 rounded-xl bg-secondary/40 animate-fade-in"
               style={{ animationDelay: `${index * 80}ms` }}
             >
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-3">
                 {metric.positive ? (
-                  <TrendingUp className="w-3.5 h-3.5 text-success" />
+                  <TrendingUp className="w-4 h-4 text-success" />
                 ) : (
-                  <AlertTriangle className="w-3.5 h-3.5 text-warning" />
+                  <AlertTriangle className="w-4 h-4 text-warning" />
                 )}
                 <div>
-                  <p className="text-xs font-medium text-foreground">{metric.label}</p>
-                  <p className="text-2xs text-muted-foreground">{metric.subtitle}</p>
+                  <p className="text-sm font-medium text-foreground">{metric.label}</p>
+                  <p className="text-sm text-muted-foreground">{metric.subtitle}</p>
                 </div>
               </div>
-              <span className={`text-sm font-semibold ${metric.positive ? 'text-success' : 'text-warning'}`}>
+              <span className={`text-lg font-semibold ${metric.positive ? 'text-success' : 'text-warning'}`}>
                 {metric.value}
               </span>
             </div>
@@ -76,12 +77,12 @@ export const SentimentIntelligence = () => {
         </div>
 
         {/* Insight */}
-        <div className="mt-4 p-2.5 rounded-md gradient-warning-soft border border-warning/20">
-          <div className="flex items-start gap-2">
-            <Meh className="w-3.5 h-3.5 text-warning mt-0.5 shrink-0" />
+        <div className="mt-6 p-4 rounded-xl gradient-warning-soft border border-warning/20">
+          <div className="flex items-start gap-3">
+            <Meh className="w-4 h-4 text-warning mt-0.5 shrink-0" />
             <div>
-              <p className="text-xs font-medium text-foreground">Silent Dissatisfaction Alert</p>
-              <p className="text-2xs text-muted-foreground mt-0.5 leading-relaxed">
+              <p className="text-sm font-medium text-foreground">Silent Dissatisfaction Alert</p>
+              <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                 119 calls ended neutral but show early churn indicators. Consider proactive follow-up.
               </p>
             </div>
