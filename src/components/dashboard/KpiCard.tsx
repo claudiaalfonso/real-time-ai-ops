@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { LucideIcon, TrendingUp, TrendingDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { KpiDetailDialog } from "./KpiDetailDialog";
 
 interface KpiCardProps {
   label: string;
@@ -10,6 +12,11 @@ interface KpiCardProps {
   icon: LucideIcon;
   subtitle?: string;
   tooltip?: string;
+  details?: {
+    breakdown: { label: string; value: string; trend?: string; trendPositive?: boolean }[];
+    insights: string[];
+    comparison: { label: string; value: string }[];
+  };
 }
 
 export const KpiCard = ({
@@ -20,9 +27,21 @@ export const KpiCard = ({
   icon: Icon,
   subtitle,
   tooltip,
+  details,
 }: KpiCardProps) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleClick = () => {
+    if (details) {
+      setDialogOpen(true);
+    }
+  };
+
   const content = (
-    <Card className="bg-card border-border/50 rounded-xl">
+    <Card 
+      className={`bg-card border-border/50 rounded-xl transition-all duration-200 ${details ? 'cursor-pointer hover:border-primary/30 hover:shadow-md hover:shadow-primary/5' : ''}`}
+      onClick={handleClick}
+    >
       <CardContent className="p-5">
         <div className="flex items-start justify-between">
           <div className="space-y-2">
@@ -46,20 +65,34 @@ export const KpiCard = ({
     </Card>
   );
 
-  if (tooltip) {
-    return (
-      <TooltipProvider delayDuration={200}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            {content}
-          </TooltipTrigger>
-          <TooltipContent side="bottom" className="max-w-xs">
-            <p className="text-xs">{tooltip}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    );
-  }
+  const cardElement = tooltip ? (
+    <TooltipProvider delayDuration={200}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          {content}
+        </TooltipTrigger>
+        <TooltipContent side="bottom" className="max-w-xs">
+          <p className="text-xs">{tooltip}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  ) : content;
 
-  return content;
+  return (
+    <>
+      {cardElement}
+      {details && (
+        <KpiDetailDialog
+          open={dialogOpen}
+          onOpenChange={setDialogOpen}
+          label={label}
+          value={value}
+          delta={delta}
+          deltaPositive={deltaPositive}
+          icon={Icon}
+          details={details}
+        />
+      )}
+    </>
+  );
 };

@@ -67,7 +67,7 @@ export const CallDurationChart = () => {
         </div>
 
         {/* Insight */}
-        <div className="mt-4 pt-3 border-t border-border/50">
+        <div className="mt-3 pt-3 border-t border-border/50">
           <div className="flex items-center gap-1.5 text-success">
             <TrendingDown className="w-3.5 h-3.5" />
             <span className="text-xs">Average duration decreased by 14s this week</span>
