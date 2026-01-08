@@ -39,25 +39,23 @@ const actions: Action[] = [
 
 export const RecommendedActions = () => {
   return (
-    <Card className="bg-card/50 border-border/40 rounded-xl">
-      <CardHeader className="pb-3 pt-4 px-4">
+    <Card className="bg-card border-border/50 rounded-xl">
+      <CardHeader className="pb-2 pt-4 px-4">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-md bg-primary/10">
-            <Lightbulb className="w-3.5 h-3.5 text-primary" />
-          </div>
-          <CardTitle className="text-sm font-semibold">Recommended Actions</CardTitle>
+          <Lightbulb className="w-4 h-4 text-primary" />
+          <CardTitle className="text-sm font-medium">Recommended Actions</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="px-4 pb-4">
-        <div className="space-y-2">
+        <div className="space-y-1">
           {actions.map((action, index) => (
             <div key={action.id}>
-              <div className="flex items-start justify-between gap-3 py-2">
+              <div className="flex items-start justify-between gap-3 py-2.5">
                 <div className="flex items-start gap-2.5 min-w-0">
-                  <action.icon className={`w-4 h-4 shrink-0 mt-0.5 ${action.urgent ? 'text-amber-500' : 'text-muted-foreground'}`} />
+                  <action.icon className={`w-4 h-4 shrink-0 mt-0.5 ${action.urgent ? 'text-amber-400' : 'text-muted-foreground/60'}`} />
                   <div className="min-w-0">
-                    <span className="text-2xs text-muted-foreground block mb-0.5">{action.category}</span>
-                    <p className="text-xs text-foreground leading-snug">{action.title}</p>
+                    <span className="text-xs text-muted-foreground block mb-0.5">{action.category}</span>
+                    <p className="text-sm text-foreground leading-snug">{action.title}</p>
                   </div>
                 </div>
                 <Button 
@@ -69,7 +67,7 @@ export const RecommendedActions = () => {
                   <ArrowRight className="w-3 h-3 ml-1" />
                 </Button>
               </div>
-              {index < actions.length - 1 && <Separator className="bg-border/40" />}
+              {index < actions.length - 1 && <Separator className="bg-border/30" />}
             </div>
           ))}
         </div>

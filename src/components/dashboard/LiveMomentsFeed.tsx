@@ -99,31 +99,31 @@ export const LiveMomentsFeed = () => {
   }, []);
 
   return (
-    <Card className="bg-card/50 border-border/40 rounded-xl h-full">
-      <CardHeader className="pb-3 pt-4 px-4">
+    <Card className="bg-card border-border/50 rounded-xl">
+      <CardHeader className="pb-2 pt-4 px-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-semibold flex items-center gap-2">
+          <CardTitle className="text-sm font-medium flex items-center gap-2">
             <span className="relative w-1.5 h-1.5">
-              <span className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75" />
-              <span className="relative block w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+              <span className="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-75" />
+              <span className="relative block w-1.5 h-1.5 bg-emerald-400 rounded-full" />
             </span>
             Live Moments
           </CardTitle>
-          <span className="text-2xs text-muted-foreground">Real-time</span>
+          <span className="text-xs text-muted-foreground">Real-time</span>
         </div>
       </CardHeader>
       <CardContent className="px-4 pb-4">
-        <ScrollArea className="h-[300px] pr-2">
-          <div className="space-y-2">
+        <ScrollArea className="h-[280px] pr-2">
+          <div className="space-y-1.5">
             <AnimatePresence mode="popLayout">
               {moments.map((moment) => (
                 <motion.div
                   key={moment.id}
                   layout
-                  initial={{ opacity: 0, y: -12, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
                 >
                   <LiveMomentItem moment={moment} />
                 </motion.div>

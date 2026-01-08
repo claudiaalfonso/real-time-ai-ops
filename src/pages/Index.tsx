@@ -12,15 +12,15 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <CommandBar />
 
-      <main className="max-w-screen-2xl mx-auto px-6 py-6">
+      <main className="max-w-screen-2xl mx-auto px-6 py-8">
         {/* Section Header */}
-        <section className="mb-6">
+        <section className="mb-8">
           <div className="flex items-center gap-3 mb-1">
-            <h2 className="text-xl font-semibold text-foreground">Real-time Visibility</h2>
+            <h2 className="text-lg font-semibold text-foreground">Real-time Visibility</h2>
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <span className="relative w-1.5 h-1.5">
-                <span className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75" />
-                <span className="relative block w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                <span className="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-75" />
+                <span className="relative block w-1.5 h-1.5 bg-emerald-400 rounded-full" />
               </span>
               Live
             </div>
@@ -29,7 +29,7 @@ const Index = () => {
         </section>
 
         {/* KPI Strip */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <KpiCard
             label="Total Calls Today"
             value="2,847"
@@ -68,7 +68,7 @@ const Index = () => {
           />
         </div>
 
-        <Separator className="mb-6 bg-border/40" />
+        <Separator className="mb-8 bg-border/30" />
 
         {/* 2-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -85,15 +85,15 @@ const Index = () => {
         </div>
 
         {/* Footer */}
-        <footer className="mt-10 pt-5 border-t border-border/40">
+        <footer className="mt-12 pt-6 border-t border-border/30">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <div className="flex items-center gap-3">
               <span>ENERA Command Center</span>
               <span className="text-border">•</span>
               <span className="flex items-center gap-1.5">
                 <span className="relative w-1.5 h-1.5">
-                  <span className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75" />
-                  <span className="relative block w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                  <span className="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-75" />
+                  <span className="relative block w-1.5 h-1.5 bg-emerald-400 rounded-full" />
                 </span>
                 All systems operational
               </span>

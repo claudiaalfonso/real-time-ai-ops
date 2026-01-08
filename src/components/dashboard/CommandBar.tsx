@@ -18,33 +18,32 @@ const anomalies = [
 export const CommandBar = () => {
   return (
     <TooltipProvider delayDuration={200}>
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
-        <div className="max-w-screen-2xl mx-auto px-6 py-3">
-          <div className="flex items-center justify-between gap-6">
+      <header className="sticky top-0 z-50 bg-background border-b border-border/40">
+        <div className="max-w-screen-2xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between gap-8">
             {/* Logo & Title */}
             <div className="flex items-center gap-3">
-              <div className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-primary/10 border border-primary/20">
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
                 <Zap className="w-4 h-4 text-primary" />
-                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
               </div>
               <div>
-                <h1 className="text-sm font-semibold text-foreground tracking-tight">ENERA</h1>
-                <p className="text-2xs text-muted-foreground">Command Center</p>
+                <h1 className="text-sm font-semibold text-foreground">ENERA</h1>
+                <p className="text-xs text-muted-foreground">Command Center</p>
               </div>
             </div>
 
-            <Separator orientation="vertical" className="h-8 bg-border/50" />
+            <Separator orientation="vertical" className="h-6 bg-border/40" />
 
-            {/* Metrics */}
-            <div className="flex items-center gap-3 flex-1">
+            {/* Metrics - cleaner, lighter */}
+            <div className="flex items-center gap-6 flex-1">
               {metrics.map((metric) => (
                 <Tooltip key={metric.label}>
                   <TooltipTrigger asChild>
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-muted/30 border border-border/40 cursor-default transition-colors hover:bg-muted/50">
-                      <metric.icon className="w-3.5 h-3.5 text-muted-foreground/60" />
+                    <div className="flex items-center gap-2 cursor-default">
+                      <metric.icon className="w-4 h-4 text-muted-foreground/50" />
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-xs font-medium text-foreground">{metric.value}</span>
-                        <span className={`text-2xs ${metric.positive ? 'text-emerald-500' : 'text-rose-400'}`}>
+                        <span className="text-sm font-medium text-foreground">{metric.value}</span>
+                        <span className={`text-xs ${metric.positive ? 'text-emerald-400' : 'text-rose-400'}`}>
                           {metric.trend}
                         </span>
                       </div>
@@ -58,7 +57,7 @@ export const CommandBar = () => {
               ))}
             </div>
 
-            {/* Anomaly Alerts */}
+            {/* Anomaly Alerts - more subtle */}
             <div className="flex items-center gap-2">
               {anomalies.map((anomaly, i) => (
                 <AlertBanner
