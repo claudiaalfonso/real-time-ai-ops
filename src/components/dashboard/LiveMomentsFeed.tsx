@@ -1,6 +1,7 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { CheckCircle, AlertTriangle, Zap, TrendingUp, Clock, MapPin } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle, AlertTriangle, Zap, Clock, MapPin } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Moment {
   id: string;
@@ -71,23 +72,18 @@ const newMomentsPool: Moment[] = [
 ];
 
 const MomentIcon = ({ type }: { type: Moment["type"] }) => {
-  const icons = {
-    success: <CheckCircle className="w-4 h-4 text-success" />,
-    warning: <AlertTriangle className="w-4 h-4 text-warning" />,
-    info: <Zap className="w-4 h-4 text-primary" />,
-    alert: <AlertTriangle className="w-4 h-4 text-destructive" />,
+  const config = {
+    success: { icon: CheckCircle, className: "bg-success/10 text-success" },
+    warning: { icon: AlertTriangle, className: "bg-warning/10 text-warning" },
+    info: { icon: Zap, className: "bg-primary/10 text-primary" },
+    alert: { icon: AlertTriangle, className: "bg-destructive/10 text-destructive" },
   };
   
-  const backgrounds = {
-    success: "bg-success/15",
-    warning: "bg-warning/15",
-    info: "bg-primary/15",
-    alert: "bg-destructive/15",
-  };
+  const { icon: Icon, className } = config[type];
   
   return (
-    <div className={`p-2 rounded-lg ${backgrounds[type]}`}>
-      {icons[type]}
+    <div className={`p-1.5 rounded-md ${className}`}>
+      <Icon className="w-3.5 h-3.5" />
     </div>
   );
 };
@@ -111,59 +107,53 @@ export const LiveMomentsFeed = () => {
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="glass rounded-xl p-5"
-    >
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <div className="relative">
-            <div className="w-2 h-2 bg-success rounded-full" />
-            <div className="absolute inset-0 w-2 h-2 bg-success rounded-full animate-ping" />
-          </div>
-          <h3 className="text-lg font-semibold text-foreground">Live Moments</h3>
+    <Card className="card-elevated h-full">
+      <CardHeader className="pb-3 pt-4 px-4">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-base font-semibold flex items-center gap-2">
+            <span className="relative w-1.5 h-1.5">
+              <span className="absolute inset-0 bg-success rounded-full animate-ping opacity-75" />
+              <span className="relative block w-1.5 h-1.5 bg-success rounded-full" />
+            </span>
+            Live Moments
+          </CardTitle>
+          <span className="text-2xs text-muted-foreground">Real-time</span>
         </div>
-        <span className="text-xs text-muted-foreground">Real-time feed</span>
-      </div>
-
-      <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
-        <AnimatePresence mode="popLayout">
-          {moments.map((moment, index) => (
-            <motion.div
-              key={moment.id}
-              layout
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ 
-                type: "spring", 
-                stiffness: 500, 
-                damping: 30,
-                delay: index === 0 ? 0 : 0 
-              }}
-              className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30 border border-border/30"
-            >
-              <MomentIcon type={moment.type} />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-foreground">{moment.message}</p>
-                <div className="flex items-center gap-2 mt-1">
-                  {moment.location && (
-                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <MapPin className="w-3 h-3" />
-                      {moment.location}
+      </CardHeader>
+      <CardContent className="px-4 pb-4">
+        <div className="space-y-2 max-h-[340px] overflow-y-auto pr-1">
+          <AnimatePresence mode="popLayout">
+            {moments.map((moment) => (
+              <motion.div
+                key={moment.id}
+                layout
+                initial={{ opacity: 0, y: -12, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="flex items-start gap-2.5 p-2.5 rounded-md bg-secondary/40 border border-border/40"
+              >
+                <MomentIcon type={moment.type} />
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-foreground leading-relaxed">{moment.message}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    {moment.location && (
+                      <span className="flex items-center gap-0.5 text-2xs text-muted-foreground">
+                        <MapPin className="w-2.5 h-2.5" />
+                        {moment.location}
+                      </span>
+                    )}
+                    <span className="flex items-center gap-0.5 text-2xs text-muted-foreground">
+                      <Clock className="w-2.5 h-2.5" />
+                      {moment.timestamp}
                     </span>
-                  )}
-                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Clock className="w-3 h-3" />
-                    {moment.timestamp}
-                  </span>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-    </motion.div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </CardContent>
+    </Card>
   );
 };

@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { GitBranch } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const flowData = {
   total: 2847,
@@ -14,86 +14,81 @@ const flowData = {
 
 export const CallReasonFlow = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="glass rounded-xl p-5"
-    >
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-secondary">
-            <GitBranch className="w-5 h-5 text-muted-foreground" />
+    <Card className="card-elevated">
+      <CardHeader className="pb-3 pt-4 px-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="p-1.5 rounded-md bg-secondary">
+              <GitBranch className="w-3.5 h-3.5 text-muted-foreground" />
+            </div>
+            <div>
+              <CardTitle className="text-base font-semibold">Call Reason Flow</CardTitle>
+              <p className="text-2xs text-muted-foreground mt-0.5">What customers call about</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-lg font-semibold text-foreground">Call Reason Flow</h3>
-            <p className="text-sm text-muted-foreground">What customers call about</p>
-          </div>
+          <span className="text-xs font-medium text-muted-foreground">
+            {flowData.total.toLocaleString()} total
+          </span>
         </div>
-        <span className="text-sm font-medium text-muted-foreground">
-          {flowData.total.toLocaleString()} total calls
-        </span>
-      </div>
-
-      {/* Flow Visualization */}
-      <div className="relative">
-        {/* Source Node */}
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-24 py-3 px-4 rounded-lg bg-secondary text-center">
-            <p className="text-xs text-muted-foreground">All Calls</p>
-            <p className="text-lg font-bold text-foreground">{flowData.total.toLocaleString()}</p>
+      </CardHeader>
+      <CardContent className="px-4 pb-4">
+        {/* Flow Visualization */}
+        <div className="relative">
+          {/* Source Node */}
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-20 py-2.5 px-3 rounded-md bg-secondary text-center">
+              <p className="text-2xs text-muted-foreground">All Calls</p>
+              <p className="text-base font-semibold text-foreground">{flowData.total.toLocaleString()}</p>
+            </div>
+            <div className="flex-1 h-px bg-gradient-to-r from-muted-foreground/40 to-transparent" />
           </div>
-          <div className="flex-1 h-0.5 bg-gradient-to-r from-muted-foreground/50 to-transparent" />
-        </div>
 
-        {/* Category Nodes */}
-        <div className="space-y-3 pl-8 relative">
-          {/* Connecting line */}
-          <div className="absolute left-12 top-0 bottom-0 w-0.5 bg-border" />
-          
-          {flowData.categories.map((category, index) => (
-            <motion.div
-              key={category.name}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="flex items-center gap-4 relative"
-            >
-              {/* Connector */}
-              <div className="absolute left-4 w-4 h-0.5 bg-border" />
-              <div className={`w-3 h-3 rounded-full ${category.color} z-10`} />
-              
-              <div className="flex-1 flex items-center gap-3 p-3 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors">
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-foreground">{category.name}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <div className="flex-1 h-1.5 bg-secondary rounded-full overflow-hidden max-w-[200px]">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${category.percentage}%` }}
-                        transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
-                        className={`h-full rounded-full ${category.color}`}
-                      />
+          {/* Category Nodes */}
+          <div className="space-y-2 pl-6 relative">
+            {/* Connecting line */}
+            <div className="absolute left-10 top-0 bottom-0 w-px bg-border" />
+            
+            {flowData.categories.map((category, index) => (
+              <div
+                key={category.name}
+                className="flex items-center gap-3 relative animate-fade-in"
+                style={{ animationDelay: `${index * 60}ms` }}
+              >
+                {/* Connector */}
+                <div className="absolute left-4 w-3 h-px bg-border" />
+                <div className={`w-2 h-2 rounded-full ${category.color} z-10 shrink-0`} />
+                
+                <div className="flex-1 flex items-center gap-2.5 p-2.5 rounded-md bg-secondary/40 hover:bg-secondary/60 transition-colors">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-medium text-foreground">{category.name}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <div className="flex-1 h-1 bg-secondary rounded-full overflow-hidden max-w-[160px]">
+                        <div
+                          className={`h-full rounded-full ${category.color} transition-all duration-500`}
+                          style={{ width: `${category.percentage}%` }}
+                        />
+                      </div>
+                      <span className="text-2xs text-muted-foreground">{category.percentage}%</span>
                     </div>
-                    <span className="text-xs text-muted-foreground">{category.percentage}%</span>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="text-sm font-semibold text-foreground">{category.count.toLocaleString()}</p>
+                    <p className="text-2xs text-muted-foreground">calls</p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-lg font-semibold text-foreground">{category.count.toLocaleString()}</p>
-                  <p className="text-xs text-muted-foreground">calls</p>
-                </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Key Insight */}
-      <div className="mt-6 p-3 rounded-lg bg-primary/10 border border-primary/20">
-        <p className="text-sm text-foreground">
-          <span className="font-semibold text-primary">Charger Issues</span> dominate at 39.5% — 
-          consider proactive status monitoring to reduce inbound volume.
-        </p>
-      </div>
-    </motion.div>
+        {/* Key Insight */}
+        <div className="mt-5 p-2.5 rounded-md bg-primary/5 border border-primary/20">
+          <p className="text-xs text-foreground leading-relaxed">
+            <span className="font-medium text-primary">Charger Issues</span> dominate at 39.5% — 
+            consider proactive status monitoring to reduce inbound volume.
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   );
 };

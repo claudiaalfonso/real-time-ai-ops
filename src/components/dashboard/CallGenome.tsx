@@ -1,9 +1,12 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Phone, Clock, Brain, MessageSquare, ChevronRight, 
-  CheckCircle, UserX, ArrowUpRight, Zap, Activity
+  CheckCircle, UserX, ArrowUpRight, Zap
 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 interface CallData {
   id: string;
@@ -65,31 +68,19 @@ const mockCalls: CallData[] = [
 ];
 
 const OutcomeBadge = ({ outcome }: { outcome: CallData["outcome"] }) => {
-  const styles = {
-    resolved: "bg-success/15 text-success border-success/30",
-    escalated: "bg-warning/15 text-warning border-warning/30",
-    hung_up: "bg-destructive/15 text-destructive border-destructive/30",
+  const config = {
+    resolved: { label: "AI Resolved", icon: CheckCircle, className: "border-success/30 bg-success/10 text-success" },
+    escalated: { label: "Escalated", icon: ArrowUpRight, className: "border-warning/30 bg-warning/10 text-warning" },
+    hung_up: { label: "Hung Up", icon: UserX, className: "border-destructive/30 bg-destructive/10 text-destructive" },
   };
   
-  const icons = {
-    resolved: CheckCircle,
-    escalated: ArrowUpRight,
-    hung_up: UserX,
-  };
-  
-  const labels = {
-    resolved: "AI Resolved",
-    escalated: "Escalated",
-    hung_up: "Hung Up",
-  };
-  
-  const Icon = icons[outcome];
+  const { label, icon: Icon, className } = config[outcome];
   
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${styles[outcome]}`}>
-      <Icon className="w-3 h-3" />
-      {labels[outcome]}
-    </span>
+    <Badge variant="outline" className={`text-2xs py-0.5 ${className}`}>
+      <Icon className="w-3 h-3 mr-1" />
+      {label}
+    </Badge>
   );
 };
 
@@ -98,23 +89,17 @@ const SentimentBar = ({ start, end }: { start: number; end: number }) => {
   const isPositive = delta > 0;
   
   return (
-    <div className="space-y-1">
+    <div className="space-y-1.5">
       <div className="flex items-center justify-between text-xs">
         <span className="text-muted-foreground">Sentiment</span>
-        <span className={isPositive ? "text-success" : "text-destructive"}>
+        <span className={isPositive ? "text-success font-medium" : "text-destructive font-medium"}>
           {isPositive ? "+" : ""}{delta}%
         </span>
       </div>
-      <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: `${end}%` }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className={`h-full rounded-full ${
-            end > 60 ? "bg-success" : end > 40 ? "bg-warning" : "bg-destructive"
-          }`}
-        />
-      </div>
+      <Progress 
+        value={end} 
+        className="h-1.5"
+      />
     </div>
   );
 };
@@ -125,12 +110,12 @@ const LatencyBreakdown = ({ latency }: { latency: CallData["latency"] }) => {
   return (
     <div className="space-y-2">
       <p className="text-xs text-muted-foreground">Latency Breakdown</p>
-      <div className="flex h-2 rounded-full overflow-hidden bg-secondary">
-        <div className="bg-primary/70" style={{ width: `${(latency.stt / total) * 100}%` }} />
+      <div className="flex h-1.5 rounded-full overflow-hidden bg-secondary">
+        <div className="bg-primary/60" style={{ width: `${(latency.stt / total) * 100}%` }} />
         <div className="bg-primary" style={{ width: `${(latency.reasoning / total) * 100}%` }} />
-        <div className="bg-primary/50" style={{ width: `${(latency.tts / total) * 100}%` }} />
+        <div className="bg-primary/40" style={{ width: `${(latency.tts / total) * 100}%` }} />
       </div>
-      <div className="flex justify-between text-xs text-muted-foreground">
+      <div className="flex justify-between text-2xs text-muted-foreground">
         <span>STT: {latency.stt}ms</span>
         <span>Reasoning: {latency.reasoning}ms</span>
         <span>TTS: {latency.tts}ms</span>
@@ -146,92 +131,96 @@ export const CallGenome = () => {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-foreground">Call Genome</h2>
-          <p className="text-sm text-muted-foreground">Real-time AI interaction analysis</p>
+          <h2 className="text-base font-semibold text-foreground">Call Genome</h2>
+          <p className="text-xs text-muted-foreground mt-0.5">Real-time AI interaction analysis</p>
         </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span className="w-2 h-2 bg-success rounded-full animate-pulse" />
+        <div className="flex items-center gap-1.5 text-2xs text-muted-foreground">
+          <span className="relative w-1.5 h-1.5">
+            <span className="absolute inset-0 bg-success rounded-full animate-ping opacity-75" />
+            <span className="relative block w-1.5 h-1.5 bg-success rounded-full" />
+          </span>
           Live
         </div>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-2">
         {mockCalls.map((call, index) => (
           <motion.div
             key={call.id}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className="glass rounded-xl overflow-hidden"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05, duration: 0.2 }}
           >
-            <div
-              onClick={() => setExpandedId(expandedId === call.id ? null : call.id)}
-              className="p-4 cursor-pointer hover:bg-secondary/30 transition-colors"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-start gap-3 flex-1">
-                  <div className={`p-2 rounded-lg ${
-                    call.outcome === "resolved" ? "bg-success/10" :
-                    call.outcome === "escalated" ? "bg-warning/10" : "bg-destructive/10"
-                  }`}>
-                    <Phone className={`w-4 h-4 ${
-                      call.outcome === "resolved" ? "text-success" :
-                      call.outcome === "escalated" ? "text-warning" : "text-destructive"
-                    }`} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-foreground truncate">{call.reason}</p>
-                    <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {call.duration}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Brain className="w-3 h-3" />
-                        {call.confidence}% confidence
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Zap className="w-3 h-3" />
-                        {call.latency.stt + call.latency.reasoning + call.latency.tts}ms total
-                      </span>
+            <Card className="card-interactive overflow-hidden">
+              <div
+                onClick={() => setExpandedId(expandedId === call.id ? null : call.id)}
+                className="p-3.5 cursor-pointer"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3 flex-1 min-w-0">
+                    <div className={`p-1.5 rounded-md ${
+                      call.outcome === "resolved" ? "bg-success/10" :
+                      call.outcome === "escalated" ? "bg-warning/10" : "bg-destructive/10"
+                    }`}>
+                      <Phone className={`w-3.5 h-3.5 ${
+                        call.outcome === "resolved" ? "text-success" :
+                        call.outcome === "escalated" ? "text-warning" : "text-destructive"
+                      }`} />
                     </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <OutcomeBadge outcome={call.outcome} />
-                  <span className="text-xs text-muted-foreground">{call.timestamp}</span>
-                  <ChevronRight className={`w-4 h-4 text-muted-foreground transition-transform ${
-                    expandedId === call.id ? "rotate-90" : ""
-                  }`} />
-                </div>
-              </div>
-            </div>
-
-            <AnimatePresence>
-              {expandedId === call.id && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="border-t border-border/50"
-                >
-                  <div className="p-4 bg-secondary/20 space-y-4">
-                    <div className="flex items-start gap-2">
-                      <MessageSquare className="w-4 h-4 text-primary mt-0.5" />
-                      <div>
-                        <p className="text-xs text-muted-foreground mb-1">AI Summary</p>
-                        <p className="text-sm text-foreground">{call.summary}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground truncate">{call.reason}</p>
+                      <div className="flex items-center gap-3 mt-1 text-2xs text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {call.duration}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Brain className="w-3 h-3" />
+                          {call.confidence}%
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Zap className="w-3 h-3" />
+                          {call.latency.stt + call.latency.reasoning + call.latency.tts}ms
+                        </span>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <SentimentBar start={call.sentiment.start} end={call.sentiment.end} />
-                      <LatencyBreakdown latency={call.latency} />
-                    </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  <div className="flex items-center gap-2.5 shrink-0">
+                    <OutcomeBadge outcome={call.outcome} />
+                    <span className="text-2xs text-muted-foreground hidden sm:inline">{call.timestamp}</span>
+                    <ChevronRight className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${
+                      expandedId === call.id ? "rotate-90" : ""
+                    }`} />
+                  </div>
+                </div>
+              </div>
+
+              <AnimatePresence>
+                {expandedId === call.id && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="border-t border-border"
+                  >
+                    <div className="p-3.5 bg-muted/30 space-y-3">
+                      <div className="flex items-start gap-2">
+                        <MessageSquare className="w-3.5 h-3.5 text-primary mt-0.5" />
+                        <div>
+                          <p className="text-2xs text-muted-foreground mb-0.5">AI Summary</p>
+                          <p className="text-xs text-foreground leading-relaxed">{call.summary}</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <SentimentBar start={call.sentiment.start} end={call.sentiment.end} />
+                        <LatencyBreakdown latency={call.latency} />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Card>
           </motion.div>
         ))}
       </div>
