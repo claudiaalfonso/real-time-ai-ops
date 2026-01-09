@@ -148,25 +148,6 @@ export const DashboardGuide = () => {
                 ))}
               </div>
             </section>
-
-            {/* Visual Language */}
-            <section className="space-y-4">
-              <div className="flex items-center gap-2">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-semibold">4</span>
-                <h3 className="text-sm font-semibold text-foreground tracking-wide">Visual Language</h3>
-              </div>
-              <Card className="bg-muted/20 border-border/30 rounded-lg">
-                <CardContent className="p-4 space-y-2 text-xs text-muted-foreground">
-                  <p>• Soft gradients, no harsh charts</p>
-                  <p>• Cards over tables</p>
-                  <p>• Motion that communicates confidence</p>
-                  <p>• White space = authority</p>
-                  <p>• Minimal emojis, used intentionally</p>
-                  <Separator className="my-3 bg-border/30" />
-                  <p className="text-primary font-medium">Think Stripe × Linear × Palantir — not Zendesk.</p>
-                </CardContent>
-              </Card>
-            </section>
           </div>
         </ScrollArea>
       </SheetContent>
