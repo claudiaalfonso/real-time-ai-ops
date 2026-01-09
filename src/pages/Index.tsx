@@ -204,7 +204,7 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-20 items-start">
             <ResolutionFunnel />
             <SentimentIntelligence />
-            <CallDurationChart />
+            <EscalationIntelligence />
             <CallReasonFlow />
           </div>
         </section>
@@ -223,7 +223,7 @@ const Index = () => {
               <AICoaching />
             </div>
             <div className="space-y-6">
-              <EscalationIntelligence />
+              <CallDurationChart />
               <RecommendedActions />
             </div>
           </div>
