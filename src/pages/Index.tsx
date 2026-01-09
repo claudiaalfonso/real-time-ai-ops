@@ -12,6 +12,7 @@ import { AICoaching } from "@/components/dashboard/AICoaching";
 import { EscalationIntelligence } from "@/components/dashboard/EscalationIntelligence";
 import { DashboardGuide } from "@/components/dashboard/DashboardGuide";
 import { LayerNavigation } from "@/components/dashboard/LayerNavigation";
+import { AlertBanner } from "@/components/dashboard/AlertBanner";
 import { Phone, CheckCircle, Clock, Users } from "lucide-react";
 
 // KPI Detail Data
@@ -136,6 +137,20 @@ const Index = () => {
             </div>
             <p className="section-subtitle">What's happening now across your fleet</p>
           </header>
+
+          {/* Alert Banners */}
+          <div className="flex flex-wrap gap-3 mb-6">
+            <AlertBanner 
+              message="Spike in charger connectivity issues" 
+              severity="warning"
+              onAction={() => console.log("Investigate charger issues")}
+            />
+            <AlertBanner 
+              message="Latency degradation in West region" 
+              severity="alert"
+              onAction={() => console.log("Investigate latency")}
+            />
+          </div>
 
           {/* KPI Strip */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
