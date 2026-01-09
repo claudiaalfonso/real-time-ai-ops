@@ -54,11 +54,11 @@ export const CallDurationChart = () => {
         </div>
 
         {/* Labels */}
-        <div className="flex gap-1.5">
+        <div className="grid grid-cols-3 gap-x-3 gap-y-1">
           {durationBuckets.map((bucket) => (
-            <div key={bucket.range} className="flex-1 text-center">
-              <p className="text-xs text-muted-foreground">{bucket.range}</p>
-              <p className="text-xs font-medium text-foreground">{bucket.percentage}%</p>
+            <div key={bucket.range} className="text-center min-w-0">
+              <p className="text-xs text-muted-foreground truncate leading-tight">{bucket.range}</p>
+              <p className="text-xs font-medium text-foreground leading-tight">{bucket.percentage}%</p>
             </div>
           ))}
         </div>
