@@ -201,7 +201,7 @@ const Index = () => {
           </header>
 
           {/* Layer 2 Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-20 items-start">
             <ResolutionFunnel />
             <SentimentIntelligence />
             <CallDurationChart />
